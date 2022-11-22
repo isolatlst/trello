@@ -1,0 +1,373 @@
+//<МИКСИНЫ>
+@mixin anim($time, $delay) {
+	transition: all $time ease $delay;
+}
+@mixin anim_cubic($time, $delay) {
+	transition: all $time cubic-bezier(0.68, -0.55, 0.265, 1.55) $delay;
+}
+@mixin rotate($deg) {
+	transform: rotate($deg);
+}
+@mixin scale($num) {
+	transform: scale($num);
+}
+@mixin scew($num) {
+	transform: scewX($num);
+}
+@mixin cnt($h) {
+	display: flex;
+	flex-direction: column;
+	height: $h;
+	text-align: center;
+	align-items: stretch;
+	justify-content: center;
+}
+@mixin tr($x, $y, $z) {
+	transform: translate3d($x, $y, $z);
+}
+//</МИКСИНЫ>
+
+//<ШРИФТЫ>
+//<Подключаем шрифты>
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap");
+//</Подключаем шрифты>
+//<Шрифт по умолчанию>
+$fontfamily: "Open Sans";
+//</Шрифт по умолчанию>
+//</ШРИФТЫ>
+
+//<Переменные>
+$minwidth: 320px;
+$mw: 1237;
+$md1: $mw + 12;
+$md2: 992.98;
+$md3: 767.98;
+$md4: 479.98;
+$md5: 345;
+//</Переменные>
+
+//<ОБНУЛЕНИЕ>
+@import "../css/reset.css";
+//</ОБНУЛЕНИЕ>
+
+//<ОБОЛОЧКА>
+.wrapper {
+	width: 100%;
+	min-height: 100%;
+	overflow: hidden;
+	&.loaded {
+	}
+}
+//</ОБОЛОЧКА>
+
+//<ОСНОВНАЯ СЕТКА>
+.container {
+	max-width: $mw + px;
+	margin: 0 auto;
+	width: 100%;
+	@media (max-width: $md1+px) {
+		max-width: 970px;
+	}
+	@media (max-width: $md2+px) {
+		max-width: 825px;
+	}
+	@media (max-width: $md3+px) {
+		max-width: none;
+		padding: 0 10px;
+	}
+}
+//</ОСНОВНАЯ СЕТКА>
+
+//<Анимации>
+@keyframes popup_appearance {
+	from{
+		width: 0;
+		height: 150px;
+		opacity: 0;
+	}
+	to{
+		width: 400px;
+		height: auto;
+		opacity: 1;
+	}
+}
+//</Анимации>
+
+//<CSS-свойства>
+.app {
+	display: flex;
+	flex-direction: column;
+	width: 100vw;
+	height: 100vh;
+	padding: 50px;
+	font-family: 'Open sans';
+	background: url('../img/1.jpg') center/cover no-repeat;
+	overflow: hidden;
+
+	.boards{
+		display: flex;
+		width: 100%;
+	}
+}
+
+.board {
+	&__item {
+		display: flex;
+		flex-direction: column;
+		align-self: baseline;
+		max-width: 250px;
+		
+		width: 100%;
+		margin: 0 15px;
+		padding: 10px;
+		border-radius: 3px;
+		background-color: rgba(0,0,0,.5);
+		transition: .3 all ease;
+	}
+	&__title{
+		padding: 5px;
+		border-radius: 3px;
+		text-align: center;
+		color: white;
+		&:focus{
+			outline: 1px solid rgba(168,168,168,0.45);
+		}
+	}
+}
+
+.list{
+	min-height: 42px;
+	max-height: 764px;
+	margin-right: -7px;
+	padding-right: 7px;
+	overflow-y: overlay;
+	scrollbar-width: 3px;
+	scrollbar-color: #fff transparent;
+	
+	&::-webkit-scrollbar {
+		width: 3px;
+		background: transparent;
+	}
+	&::-webkit-scrollbar-thumb {
+		border-radius: 6px;
+		background: #fff;
+	}
+	&::-webkit-scrollbar-thumb:hover {
+		background-color: rgba(255,255,255,.5);
+	}
+
+	&__item{
+		position: relative;
+		padding: 10px;
+		margin: 4px 0px;
+		border-radius: 3px;
+		font-size: 14px;
+		text-align: center;
+		
+		background-color: #fefefe;
+		cursor: pointer;
+
+		&:hover{
+			.list__item-remove{
+				display: flex;
+			}		
+		}
+	}
+	
+	&__item-remove{
+		position: absolute;
+		top: 0;
+		right: 0;
+		display: none;
+		flex-direction: column;
+		justify-content: center;
+		padding-top: 2px;
+		width: 25px;
+		height: 100%;
+		&::before, &::after{
+			content: '';
+			position: relative;
+			display: block;
+			width: 16px;
+			height: 2px;
+			margin: 2px 0;
+			background: rgba(0,0,0,.5);
+		}
+		&:hover{
+			&::before{
+				top: 3px;
+				transform: rotate(45deg);
+				background: rgba(0,0,0,0.8);
+			}
+			&::after{
+				bottom: 3px;
+				transform: rotate(-45deg);
+				background: rgba(0,0,0,0.8);
+			}
+		}
+	}
+}
+
+.form {
+	display: none;
+	border-radius: 3px;
+	margin-top: auto;
+
+	&__textarea {
+		width: 100%;
+		height: 60px;
+		padding: 10px;
+		border-radius: 3px;
+		background: white;
+		resize: none;
+	}
+
+	&__buttons {
+		display: flex;
+	}
+
+	&__add-item-btn {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 100%;
+		height: 35px;
+		margin-right: 10px;
+		border-radius: 3px;
+		color: white;
+		background: rgb(13,136,218);
+		cursor: pointer;
+	}
+
+	&__cancel-item-btn {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-shrink: 0;
+		width: 75px;
+		height: 35px;
+		margin-left: auto;
+		padding: 0 10px;
+		border-radius: 3px;
+		color:white;
+		background: rgb(150,17,12);
+		cursor: pointer;
+	}
+}
+.open-form-btn{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 30px;
+	margin-top: 5px;
+	border-radius: 3px;
+	font-size: 12px;
+	color: white;
+	background-color: rgba(155,155,155,.3);
+	user-select: none;
+	
+	span{
+		margin-left: -5px;
+		margin-right: 8px;
+		font-size: 20px;
+		color: white;
+	}
+}
+.add-board-btn{
+	position: absolute;
+	bottom: 50px;
+	left: 50%;
+	transform: translate(-50%);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 150px;
+	height: 35px;
+	border-radius: 3px;
+	font-size: 14px;
+	color:white;
+	background-color: rgba(19,130,204,.62);
+	cursor: pointer;
+	user-select: none;
+}
+
+.popup {
+	position: absolute;
+	top: 20px;
+	right: 20px;
+	
+	&__body {
+		position: absolute;
+		top: 30px;
+		right: 45px;
+		z-index: 100;
+		display: flex;
+		flex-direction: column;
+		width: 400px;
+		padding: 10px;
+		border-radius: 3px;
+		overflow: hidden;
+		letter-spacing: 1px;
+		color: white;
+		background-color: rgba(0,0,0,.5);
+		animation: popup_appearance 1s ease;
+	}
+
+	&__title {
+		margin-bottom: 15px;
+		font-size: 16px;
+		text-align: center;
+	}
+
+	&__text {
+		margin-bottom: 15px;
+		text-align: justify;
+	}
+
+	&__buttons {
+		display: flex;
+		justify-content: end;
+		button{
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			height: 35px;
+			border-radius: 3px;
+			padding: 0 10px;
+			margin: 0 5px;
+			color: white;
+			cursor: pointer;
+		}
+	}
+
+	&__button_allow-save, &__button_save-data {
+		background: rgba(13, 200, 71, .8);	
+	}
+
+	&__button_disallow-save, &__button_remove-data {
+		background: rgba(193, 24, 18, .8);
+	}	
+
+	&__icon{
+		position: absolute;
+		top: 0;
+		right: 0;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 30px;
+		height: 30px;
+		border: 1px solid rgba(255,255,255,.5);
+		border-radius: 50%;
+		color: rgba(255,255,255,.5);
+		user-select: none;
+		cursor: pointer;
+
+		&:hover{
+			border: 1px solid rgba(255,255,255,1);
+			color: rgba(255,255,255,1);
+		}
+	}
+}
+
+//</CSS-свойства>

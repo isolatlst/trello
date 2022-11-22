@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="shortcut icon" href="img/ico.ico">
+	<title>Notes</title>
+</head>
+
+<body>
+	<div class="wrapper">
+
+		<div class="app">
+			<div class="boards">
+				<div class="board__item">
+					<span contenteditable="true" class="board__title">Введите название</span>
+					<div class="list">
+						<div class="list__item" draggable="true">
+							Стартовая карточка
+							<span class="list__item-remove"></span>
+						</div>
+					</div>
+
+					<div class="form">
+						<textarea class="form__textarea" placeholder="Введите название для этой карточки"></textarea>
+
+						<div class="form__buttons">
+							<button class="form__add-item-btn" role="button">Добавить карточку</button>
+							<button class="form__cancel-item-btn" role="button">Отмена</button>
+						</div>
+					</div>
+
+					<button class="open-form-btn"><span>+</span>Добавить карточку</button>
+				</div>
+			</div>
+			<button class="add-board-btn" role="button">Добавить доску</button>
+			<div class="popup"></div>
+		</div>
+
+	</div>
+<script src="js/main.js"></script></body>
+
+</html>
